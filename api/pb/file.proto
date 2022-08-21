@@ -1,0 +1,52 @@
+syntax = "proto3";
+package file.pb;
+option go_package="file/api/pb;proto";
+import "google/protobuf/empty.proto";
+
+message GetRequest{
+  int64 id = 1;
+  int64 appId = 2;
+  int64 userId = 3;
+  string FileSHA = 4;
+}
+
+message CreateRequest{
+  int64 appId = 1;
+  int64 userId = 2;
+  string fileSHA = 3;
+  string filePath = 4;
+  string fileSize = 5;
+  string contentType = 6;
+}
+
+message UpdateRequest{
+  int64 id = 1;
+  int64 appId = 2;
+  int64 userId = 3;
+  string fileSHA = 4;
+  string filePath = 5;
+  string fileSize = 6;
+  string contentType = 7;
+  bool isVisible = 8;
+  bool isDeleted = 9;
+}
+
+message FileResponse{
+  int64 id = 1;
+  int64 appId = 2;
+  int64 userId = 3;
+  string fileSHA = 4;
+  string filePath = 5;
+  string fileSize = 6;
+  string contentType = 7;
+}
+
+service File{
+  rpc Exist(GetRequest) returns (FileResponse);
+  rpc Get(GetRequest) returns(FileResponse);
+  rpc Create(CreateRequest) returns(FileResponse);
+  rpc Update(UpdateRequest) returns(FileResponse);
+  rpc Delete(UpdateRequest) returns(google.protobuf.Empty);
+}
+
+
