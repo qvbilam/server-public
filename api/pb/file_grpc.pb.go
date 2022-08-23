@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FileClient interface {
-	Exist(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*FileResponse, error)
+	Exists(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*FileResponse, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*FileResponse, error)
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*FileResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*FileResponse, error)
@@ -38,9 +38,9 @@ func NewFileClient(cc grpc.ClientConnInterface) FileClient {
 	return &fileClient{cc}
 }
 
-func (c *fileClient) Exist(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*FileResponse, error) {
+func (c *fileClient) Exists(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*FileResponse, error) {
 	out := new(FileResponse)
-	err := c.cc.Invoke(ctx, "/file.pb.File/Exist", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/file.pb.File/Exists", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *fileClient) Delete(ctx context.Context, in *UpdateRequest, opts ...grpc
 // All implementations must embed UnimplementedFileServer
 // for forward compatibility
 type FileServer interface {
-	Exist(context.Context, *GetRequest) (*FileResponse, error)
+	Exists(context.Context, *GetRequest) (*FileResponse, error)
 	Get(context.Context, *GetRequest) (*FileResponse, error)
 	Create(context.Context, *CreateRequest) (*FileResponse, error)
 	Update(context.Context, *UpdateRequest) (*FileResponse, error)
@@ -99,8 +99,8 @@ type FileServer interface {
 type UnimplementedFileServer struct {
 }
 
-func (UnimplementedFileServer) Exist(context.Context, *GetRequest) (*FileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Exist not implemented")
+func (UnimplementedFileServer) Exists(context.Context, *GetRequest) (*FileResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Exists not implemented")
 }
 func (UnimplementedFileServer) Get(context.Context, *GetRequest) (*FileResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
@@ -127,20 +127,20 @@ func RegisterFileServer(s grpc.ServiceRegistrar, srv FileServer) {
 	s.RegisterService(&File_ServiceDesc, srv)
 }
 
-func _File_Exist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _File_Exists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(FileServer).Exist(ctx, in)
+		return srv.(FileServer).Exists(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/file.pb.File/Exist",
+		FullMethod: "/file.pb.File/Exists",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FileServer).Exist(ctx, req.(*GetRequest))
+		return srv.(FileServer).Exists(ctx, req.(*GetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -225,8 +225,8 @@ var File_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*FileServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Exist",
-			Handler:    _File_Exist_Handler,
+			MethodName: "Exists",
+			Handler:    _File_Exists_Handler,
 		},
 		{
 			MethodName: "Get",

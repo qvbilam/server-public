@@ -42,7 +42,7 @@ message FileResponse{
 }
 
 service File{
-  rpc Exist(GetRequest) returns (FileResponse);
+  rpc Exists(GetRequest) returns (FileResponse);
   rpc Get(GetRequest) returns(FileResponse);
   rpc Create(CreateRequest) returns(FileResponse);
   rpc Update(UpdateRequest) returns(FileResponse);
