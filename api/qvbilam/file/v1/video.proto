@@ -19,6 +19,7 @@ message VideoResponse {
   string contentType = 8;
   string expand = 9;
   string createdAt = 10;
+  string channel = 11;
 }
 
 message VideosResponse {
@@ -31,11 +32,13 @@ message UpdateVideoRequest {
   int64 userId = 2;
   string businessId = 3;
   string url = 4;
-  string size = 5;
-  string duration = 6;
+  int64 size = 5;
+  int64 duration = 6;
   string status = 7;
   string contentType = 8;
   string expand = 9;
+  string sha1 = 10;
+  string channel = 11;
 }
 
 message GetVideoRequest {
@@ -51,7 +54,7 @@ message SearchVideoRequest{
 }
 
 service Video {
-  rpc Create (UpdateVideoRequest) returns (VideosResponse);
+  rpc Create (UpdateVideoRequest) returns (VideoResponse);
   rpc Update (UpdateVideoRequest) returns (google.protobuf.Empty);
   rpc Delete (UpdateVideoRequest) returns (google.protobuf.Empty);
   rpc Get (SearchVideoRequest) returns (VideosResponse);

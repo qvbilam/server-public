@@ -19,6 +19,7 @@ type ImageBusiness struct {
 	Status      string
 	ContentType string
 	Expand      string
+	Channel     string
 }
 
 func (b *ImageBusiness) Exists() bool {
@@ -57,6 +58,7 @@ func (b *ImageBusiness) Create() (*model.Image, error) {
 		Status:      b.Status,
 		ContentType: b.ContentType,
 		Expand:      b.Expand,
+		Channel:     b.Channel,
 	}
 	if res := global.DB.Save(&i); res.RowsAffected == 0 {
 		return nil, status.Errorf(codes.Internal, "创建失败")

@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ImageClient interface {
-	Create(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*ImagesResponse, error)
+	Create(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*ImageResponse, error)
 	Update(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Get(ctx context.Context, in *SearchImageRequest, opts ...grpc.CallOption) (*ImagesResponse, error)
@@ -38,8 +38,8 @@ func NewImageClient(cc grpc.ClientConnInterface) ImageClient {
 	return &imageClient{cc}
 }
 
-func (c *imageClient) Create(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*ImagesResponse, error) {
-	out := new(ImagesResponse)
+func (c *imageClient) Create(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*ImageResponse, error) {
+	out := new(ImageResponse)
 	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func (c *imageClient) GetDetail(ctx context.Context, in *GetImageRequest, opts .
 // All implementations must embed UnimplementedImageServer
 // for forward compatibility
 type ImageServer interface {
-	Create(context.Context, *UpdateImageRequest) (*ImagesResponse, error)
+	Create(context.Context, *UpdateImageRequest) (*ImageResponse, error)
 	Update(context.Context, *UpdateImageRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *UpdateImageRequest) (*emptypb.Empty, error)
 	Get(context.Context, *SearchImageRequest) (*ImagesResponse, error)
@@ -99,7 +99,7 @@ type ImageServer interface {
 type UnimplementedImageServer struct {
 }
 
-func (UnimplementedImageServer) Create(context.Context, *UpdateImageRequest) (*ImagesResponse, error) {
+func (UnimplementedImageServer) Create(context.Context, *UpdateImageRequest) (*ImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedImageServer) Update(context.Context, *UpdateImageRequest) (*emptypb.Empty, error) {

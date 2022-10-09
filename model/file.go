@@ -3,6 +3,7 @@ package model
 type Video struct {
 	IDModel
 	UserModel
+	Channel     string `gorm:"type:varchar(255) not null default '';comment:存储渠道"`
 	BusinessId  string `gorm:"type:varchar(255) not null default '';comment:第三方业务id;index"`
 	Sha1        string `gorm:"type:varchar(255) not null default '';comment:文件sha1;index"`
 	Url         string `gorm:"type:varchar(255);not null default '';comment:存储地址"`
@@ -18,6 +19,7 @@ type Video struct {
 type Image struct {
 	IDModel
 	UserModel
+	Channel     string `gorm:"type:varchar(255) not null default '';comment:存储渠道"`
 	BusinessId  string `gorm:"type:varchar(255) not null default '';comment:第三方业务id;index"`
 	Sha1        string `gorm:"type:varchar(255) not null default '';comment:文件sha1;index"`
 	Url         string `gorm:"type:varchar(255);not null default '';comment:存储地址"`

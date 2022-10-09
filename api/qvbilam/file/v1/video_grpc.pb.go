@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type VideoClient interface {
-	Create(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*VideosResponse, error)
+	Create(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*VideoResponse, error)
 	Update(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Get(ctx context.Context, in *SearchVideoRequest, opts ...grpc.CallOption) (*VideosResponse, error)
@@ -38,8 +38,8 @@ func NewVideoClient(cc grpc.ClientConnInterface) VideoClient {
 	return &videoClient{cc}
 }
 
-func (c *videoClient) Create(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*VideosResponse, error) {
-	out := new(VideosResponse)
+func (c *videoClient) Create(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*VideoResponse, error) {
+	out := new(VideoResponse)
 	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func (c *videoClient) GetDetail(ctx context.Context, in *GetVideoRequest, opts .
 // All implementations must embed UnimplementedVideoServer
 // for forward compatibility
 type VideoServer interface {
-	Create(context.Context, *UpdateVideoRequest) (*VideosResponse, error)
+	Create(context.Context, *UpdateVideoRequest) (*VideoResponse, error)
 	Update(context.Context, *UpdateVideoRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *UpdateVideoRequest) (*emptypb.Empty, error)
 	Get(context.Context, *SearchVideoRequest) (*VideosResponse, error)
@@ -99,7 +99,7 @@ type VideoServer interface {
 type UnimplementedVideoServer struct {
 }
 
-func (UnimplementedVideoServer) Create(context.Context, *UpdateVideoRequest) (*VideosResponse, error) {
+func (UnimplementedVideoServer) Create(context.Context, *UpdateVideoRequest) (*VideoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
 func (UnimplementedVideoServer) Update(context.Context, *UpdateVideoRequest) (*emptypb.Empty, error) {

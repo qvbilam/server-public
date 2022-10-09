@@ -18,6 +18,7 @@ type VideoBusiness struct {
 	Status      string
 	ContentType string
 	Expand      string
+	Channel     string
 }
 
 func (b *VideoBusiness) Exists() bool {
@@ -55,6 +56,7 @@ func (b *VideoBusiness) Create() (*model.Video, error) {
 		Status:      b.Status,
 		ContentType: b.ContentType,
 		Expand:      b.Expand,
+		Channel:     b.Channel,
 	}
 	if res := global.DB.Save(&v); res.RowsAffected == 0 {
 		return nil, status.Errorf(codes.Internal, "创建失败")
