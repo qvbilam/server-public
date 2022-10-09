@@ -1,42 +1,40 @@
 package model
 
-type File struct {
+type Video struct {
 	IDModel
 	UserModel
-	AppId       int64  `gorm:"type:int(11);not null default 0;comment:应用;index:idx_app_sha"`
-	FileSHA     string `gorm:"type:varchar(255);not null default '';comment:应用;index:idx_app_sha"`
-	FilePath    string `gorm:"type:varchar(255);not null default '';comment:文件路径"`
-	FileSize    int64  `gorm:"type:int(11);not null default 0;comment:文件大小"`
+	BusinessId  string `gorm:"type:varchar(255) not null default '';comment:第三方业务id;index"`
+	Sha1        string `gorm:"type:varchar(255) not null default '';comment:文件sha1;index"`
+	Url         string `gorm:"type:varchar(255);not null default '';comment:存储地址"`
+	Size        int64  `gorm:"type:int(11);not null default 0;comment:大小"`
+	Duration    int64  `gorm:"type:int(11);not null default 0;comment:时长"`
+	Status      string `gorm:"type:varchar(11);not null default '';comment:状态: -1.blocked,0.wait,1.normal"`
 	ContentType string `gorm:"type:varchar(255);not null default '';comment:内容类型"`
-	Visible
+	Expand      string `gorm:"type:varchar(255);not null default '';comment:拓展字段"`
 	DateModel
 	DeletedModel
 }
 
-type Config struct {
-	IDModel
-	AppId       int64  `gorm:"type:int(11);not null default 0;comment:应用;uniqueIndex"`
-	Key         string `gorm:"type:varchar(255);not null default '';comment:应用id"`
-	Secrect     string `gorm:"type:varchar(255);not null default '';comment:密钥"`
-	Host        string `gorm:"type:varchar(255);not null default '';comment:地址"`
-	ExpireTime  int64  `gorm:"type:int(11);not null default 0;comment:文件大小"`
-	UploadDir   string `gorm:"type:varchar(255);not null default '';comment:文件目录"`
-	CallBackUrl string `gorm:"type:varchar(255);not null default '';comment:回调地址"`
-}
-
-type UploadLog struct {
+type Image struct {
 	IDModel
 	UserModel
-	AppId   int64  `gorm:"type:int(11);not null default 0;comment:应用;index:idx_app_file"`
-	FileId  int64  `gorm:"type:int(255);not null default 0;comment:资源id;index:idx_app_file"`
-	Channel string `gorm:"type:varchar(255);not null default '';comment:通道;"`
+	BusinessId  string `gorm:"type:varchar(255) not null default '';comment:第三方业务id;index"`
+	Sha1        string `gorm:"type:varchar(255) not null default '';comment:文件sha1;index"`
+	Url         string `gorm:"type:varchar(255);not null default '';comment:存储地址"`
+	Size        int64  `gorm:"type:int(11);not null default 0;comment:大小"`
+	Width       int64  `gorm:"type:int(11);not null default 0;comment:宽"`
+	Height      int64  `gorm:"type:int(11);not null default 0;comment:高"`
+	Status      string `gorm:"type:varchar(11);not null default '';comment:状态: -1.blocked,0.wait,1.normal"`
+	ContentType string `gorm:"type:varchar(255);not null default '';comment:内容类型"`
+	Expand      string `gorm:"type:varchar(255);not null default '';comment:拓展字段"`
 	DateModel
+	DeletedModel
 }
 
-type DownLoadLog struct {
+type DownloadLog struct {
 	IDModel
 	UserModel
-	AppId  int64 `gorm:"type:int(11);not null default 0;comment:应用;index:idx_app_file"`
-	FileId int64 `gorm:"type:int(255);not null default 0;comment:资源id;index:idx_app_file"`
+	Type   string `gorm:"type:varchar(255) not null default '';comment:类型:image.图片,video.视频"`
+	FileId int64  `gorm:"type:int(255);not null default 0;comment:资源id;index:idx_app_file"`
 	DateModel
 }

@@ -33,7 +33,8 @@ func DB() *gorm.DB {
 
 func Migrate(db *gorm.DB) {
 	_ = db.AutoMigrate(
-		&model.File{},
-		&model.Config{},
+		&model.Image{},
+		&model.Video{},
+		&model.DownloadLog{},
 	)
 }

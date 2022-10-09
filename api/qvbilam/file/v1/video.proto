@@ -1,0 +1,59 @@
+syntax = "proto3";
+package filePb.v1;
+import "google/protobuf/empty.proto";
+option go_package="file/api/qvbilam/file/v1/filePb;fileV1";
+
+message PageRequest {
+  int64 page = 1;
+  int64 perPage = 2;
+}
+
+message VideoResponse {
+  int64 id = 1;
+  int64 userId = 2;
+  string businessId = 3;
+  string url = 4;
+  string size = 5;
+  string duration = 6;
+  string status = 7;
+  string contentType = 8;
+  string expand = 9;
+  string createdAt = 10;
+}
+
+message VideosResponse {
+  int64 total = 1;
+  repeated VideosResponse videos = 2;
+}
+
+message UpdateVideoRequest {
+  int64 id = 1;
+  int64 userId = 2;
+  string businessId = 3;
+  string url = 4;
+  string size = 5;
+  string duration = 6;
+  string status = 7;
+  string contentType = 8;
+  string expand = 9;
+}
+
+message GetVideoRequest {
+  int64 id = 1;
+  string businessId = 2;
+}
+
+message SearchVideoRequest{
+  repeated int64 id = 1;
+  repeated int64 userId = 2;
+  repeated string businessId = 3;
+  PageRequest page = 4;
+}
+
+service Video {
+  rpc Create (UpdateVideoRequest) returns (VideosResponse);
+  rpc Update (UpdateVideoRequest) returns (google.protobuf.Empty);
+  rpc Delete (UpdateVideoRequest) returns (google.protobuf.Empty);
+  rpc Get (SearchVideoRequest) returns (VideosResponse);
+  rpc GetDetail (GetVideoRequest) returns (VideoResponse);
+}

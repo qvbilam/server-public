@@ -2,7 +2,7 @@ package main
 
 import (
 	"file/api"
-	proto "file/api/pb"
+	proto "file/api/qvbilam/file/v1"
 	"file/global"
 	"file/initialize"
 	"fmt"
@@ -22,8 +22,8 @@ func main() {
 	// 注册服务
 	server := grpc.NewServer()
 	// todo
-	proto.RegisterFileServer(server, &api.FileServer{})
-	proto.RegisterConfigServer(server, &api.ConfigServer{})
+	proto.RegisterVideoServer(server, &api.VideoServer{})
+	proto.RegisterImageServer(server, &api.ImageServer{})
 
 	Host := "0.0.0.0"
 	Port := 9803
