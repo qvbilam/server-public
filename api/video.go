@@ -13,6 +13,20 @@ type VideoServer struct {
 	proto.UnimplementedVideoServer
 }
 
+func (s *VideoServer) Exists(ctx context.Context, request *proto.GetVideoRequest) (*proto.ExistsVideoResponse, error) {
+	if request.Id == 0 && request.BusinessId == "" && request.FileSha1 == "" {
+		return nil, status.Errorf(codes.InvalidArgument, "参数错误")
+	}
+
+	b := business.VideoBusiness{
+		ID:         request.Id,
+		BusinessID: request.BusinessId,
+		Sha1:       request.FileSha1,
+	}
+	exists := b.Exists()
+	return &proto.ExistsVideoResponse{IsExists: exists}, nil
+}
+
 func (s *VideoServer) Create(ctx context.Context, request *proto.UpdateVideoRequest) (*proto.VideoResponse, error) {
 	b := business.VideoBusiness{
 		UserID:      request.UserId,

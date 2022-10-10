@@ -1,12 +1,9 @@
 syntax = "proto3";
 package filePb.v1;
 import "google/protobuf/empty.proto";
-option go_package="file/api/qvbilam/file/v1/filePb;fileV1";
+import "api/qvbilam/page/v1/page.proto";
+option go_package="file/api/qvbilam/file/v1;fileV1";
 
-message PageRequest {
-  int64 page = 1;
-  int64 perPage = 2;
-}
 
 message ImageResponse {
   int64 id = 1;
@@ -46,13 +43,19 @@ message UpdateImageRequest {
 message GetImageRequest {
   int64 id = 1;
   string businessId = 2;
+  string fileSha1 = 3;
 }
 
 message SearchImageRequest{
   repeated int64 id = 1;
   repeated int64 userId = 2;
   repeated string businessId = 3;
-  PageRequest page = 4;
+  string fileSha1 = 4;
+  pagePb.v1.PageRequest page = 5;
+}
+
+message ExistsImageResponse {
+  bool isExists = 1;
 }
 
 service Image {
@@ -61,4 +64,5 @@ service Image {
   rpc Delete (UpdateImageRequest) returns (google.protobuf.Empty);
   rpc Get (SearchImageRequest) returns (ImagesResponse);
   rpc GetDetail (GetImageRequest) returns (ImageResponse);
+  rpc Exists(GetImageRequest) returns (ExistsImageResponse);
 }

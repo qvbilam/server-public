@@ -23,7 +23,17 @@ type VideoBusiness struct {
 
 func (b *VideoBusiness) Exists() bool {
 	v := model.Video{}
-	if res := global.DB.Where("business_id", b.BusinessID).Select("id").First(&v); res.RowsAffected == 0 {
+	condition := model.Video{}
+	if b.ID != 0 {
+		condition.ID = b.ID
+	}
+	if b.BusinessID != "" {
+		condition.BusinessId = b.BusinessID
+	}
+	if b.Sha1 != "" {
+		condition.Sha1 = b.Sha1
+	}
+	if res := global.DB.Where(condition).Select("id").First(&v); res.RowsAffected == 0 {
 		return false
 	}
 	return true

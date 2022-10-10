@@ -1,12 +1,8 @@
 syntax = "proto3";
 package filePb.v1;
 import "google/protobuf/empty.proto";
-option go_package="file/api/qvbilam/file/v1/filePb;fileV1";
-
-message PageRequest {
-  int64 page = 1;
-  int64 perPage = 2;
-}
+import "api/qvbilam/page/v1/page.proto";
+option go_package="file/api/qvbilam/file/v1;fileV1";
 
 message VideoResponse {
   int64 id = 1;
@@ -44,13 +40,19 @@ message UpdateVideoRequest {
 message GetVideoRequest {
   int64 id = 1;
   string businessId = 2;
+  string fileSha1 = 3;
 }
 
 message SearchVideoRequest{
   repeated int64 id = 1;
   repeated int64 userId = 2;
   repeated string businessId = 3;
-  PageRequest page = 4;
+  string fileSha1 = 4;
+  pagePb.v1.PageRequest page = 5;
+}
+
+message ExistsVideoResponse {
+  bool isExists = 1;
 }
 
 service Video {
@@ -59,4 +61,5 @@ service Video {
   rpc Delete (UpdateVideoRequest) returns (google.protobuf.Empty);
   rpc Get (SearchVideoRequest) returns (VideosResponse);
   rpc GetDetail (GetVideoRequest) returns (VideoResponse);
+  rpc Exists(GetVideoRequest) returns (ExistsVideoResponse);
 }

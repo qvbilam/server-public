@@ -28,6 +28,7 @@ type ImageClient interface {
 	Delete(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Get(ctx context.Context, in *SearchImageRequest, opts ...grpc.CallOption) (*ImagesResponse, error)
 	GetDetail(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*ImageResponse, error)
+	Exists(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*ExistsImageResponse, error)
 }
 
 type imageClient struct {
@@ -83,6 +84,15 @@ func (c *imageClient) GetDetail(ctx context.Context, in *GetImageRequest, opts .
 	return out, nil
 }
 
+func (c *imageClient) Exists(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*ExistsImageResponse, error) {
+	out := new(ExistsImageResponse)
+	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Exists", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ImageServer is the server API for Image service.
 // All implementations must embed UnimplementedImageServer
 // for forward compatibility
@@ -92,6 +102,7 @@ type ImageServer interface {
 	Delete(context.Context, *UpdateImageRequest) (*emptypb.Empty, error)
 	Get(context.Context, *SearchImageRequest) (*ImagesResponse, error)
 	GetDetail(context.Context, *GetImageRequest) (*ImageResponse, error)
+	Exists(context.Context, *GetImageRequest) (*ExistsImageResponse, error)
 	mustEmbedUnimplementedImageServer()
 }
 
@@ -113,6 +124,9 @@ func (UnimplementedImageServer) Get(context.Context, *SearchImageRequest) (*Imag
 }
 func (UnimplementedImageServer) GetDetail(context.Context, *GetImageRequest) (*ImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDetail not implemented")
+}
+func (UnimplementedImageServer) Exists(context.Context, *GetImageRequest) (*ExistsImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Exists not implemented")
 }
 func (UnimplementedImageServer) mustEmbedUnimplementedImageServer() {}
 
@@ -217,6 +231,24 @@ func _Image_GetDetail_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Image_Exists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ImageServer).Exists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/filePb.v1.Image/Exists",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ImageServer).Exists(ctx, req.(*GetImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Image_ServiceDesc is the grpc.ServiceDesc for Image service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -243,6 +275,10 @@ var Image_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDetail",
 			Handler:    _Image_GetDetail_Handler,
+		},
+		{
+			MethodName: "Exists",
+			Handler:    _Image_Exists_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

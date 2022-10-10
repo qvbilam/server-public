@@ -28,6 +28,7 @@ type VideoClient interface {
 	Delete(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Get(ctx context.Context, in *SearchVideoRequest, opts ...grpc.CallOption) (*VideosResponse, error)
 	GetDetail(ctx context.Context, in *GetVideoRequest, opts ...grpc.CallOption) (*VideoResponse, error)
+	Exists(ctx context.Context, in *GetVideoRequest, opts ...grpc.CallOption) (*ExistsVideoResponse, error)
 }
 
 type videoClient struct {
@@ -83,6 +84,15 @@ func (c *videoClient) GetDetail(ctx context.Context, in *GetVideoRequest, opts .
 	return out, nil
 }
 
+func (c *videoClient) Exists(ctx context.Context, in *GetVideoRequest, opts ...grpc.CallOption) (*ExistsVideoResponse, error) {
+	out := new(ExistsVideoResponse)
+	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Exists", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VideoServer is the server API for Video service.
 // All implementations must embed UnimplementedVideoServer
 // for forward compatibility
@@ -92,6 +102,7 @@ type VideoServer interface {
 	Delete(context.Context, *UpdateVideoRequest) (*emptypb.Empty, error)
 	Get(context.Context, *SearchVideoRequest) (*VideosResponse, error)
 	GetDetail(context.Context, *GetVideoRequest) (*VideoResponse, error)
+	Exists(context.Context, *GetVideoRequest) (*ExistsVideoResponse, error)
 	mustEmbedUnimplementedVideoServer()
 }
 
@@ -113,6 +124,9 @@ func (UnimplementedVideoServer) Get(context.Context, *SearchVideoRequest) (*Vide
 }
 func (UnimplementedVideoServer) GetDetail(context.Context, *GetVideoRequest) (*VideoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDetail not implemented")
+}
+func (UnimplementedVideoServer) Exists(context.Context, *GetVideoRequest) (*ExistsVideoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Exists not implemented")
 }
 func (UnimplementedVideoServer) mustEmbedUnimplementedVideoServer() {}
 
@@ -217,6 +231,24 @@ func _Video_GetDetail_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Video_Exists_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetVideoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VideoServer).Exists(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/filePb.v1.Video/Exists",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VideoServer).Exists(ctx, req.(*GetVideoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Video_ServiceDesc is the grpc.ServiceDesc for Video service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -243,6 +275,10 @@ var Video_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDetail",
 			Handler:    _Video_GetDetail_Handler,
+		},
+		{
+			MethodName: "Exists",
+			Handler:    _Video_Exists_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
