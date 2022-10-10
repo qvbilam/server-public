@@ -12,7 +12,7 @@ type ImageServer struct {
 	proto.UnimplementedImageServer
 }
 
-func (s *ImageServer) Create(ctx context.Context, request *proto.UpdateImageRequest) (*proto.ImagesResponse, error) {
+func (s *ImageServer) Create(ctx context.Context, request *proto.UpdateImageRequest) (*proto.ImageResponse, error) {
 	//TODO implement me
 	return nil, status.Errorf(codes.Unavailable, "服务不可用")
 }
