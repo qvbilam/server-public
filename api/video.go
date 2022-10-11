@@ -75,5 +75,17 @@ func (s *VideoServer) Get(ctx context.Context, request *proto.SearchVideoRequest
 
 func (s *VideoServer) GetDetail(ctx context.Context, request *proto.GetVideoRequest) (*proto.VideoResponse, error) {
 	//TODO implement me
-	return nil, status.Errorf(codes.Unavailable, "服务不可用")
+	b := business.VideoBusiness{
+		ID:         request.Id,
+		BusinessID: request.BusinessId,
+		Sha1:       request.FileSha1,
+	}
+	entity := b.GetDetail()
+
+	return &proto.VideoResponse{
+		Id:         entity.ID,
+		BusinessId: entity.BusinessId,
+		Url:        entity.Url,
+		Channel:    entity.Channel,
+	}, nil
 }

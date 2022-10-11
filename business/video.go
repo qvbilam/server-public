@@ -39,17 +39,20 @@ func (b *VideoBusiness) Exists() bool {
 	return true
 }
 
-func (b *VideoBusiness) GetById() *model.Video {
+func (b *VideoBusiness) GetDetail() *model.Video {
 	v := model.Video{}
-	if res := global.DB.Where("id", b.ID).First(&v); res.RowsAffected == 0 {
-		return nil
+	condition := model.Video{}
+	if b.ID != 0 {
+		condition.ID = b.ID
 	}
-	return &v
-}
+	if b.Sha1 != "" {
+		condition.Sha1 = b.Sha1
+	}
+	if b.BusinessID != "" {
+		condition.BusinessId = b.BusinessID
+	}
 
-func (b *VideoBusiness) GetByBusinessId() *model.Video {
-	v := model.Video{}
-	if res := global.DB.Where("business_id", b.ID).First(&v); res.RowsAffected == 0 {
+	if res := global.DB.Where(condition).First(&v); res.RowsAffected == 0 {
 		return nil
 	}
 	return &v
