@@ -9,8 +9,8 @@ message VideoResponse {
   int64 userId = 2;
   string businessId = 3;
   string url = 4;
-  string size = 5;
-  string duration = 6;
+  int64 size = 5;
+  int64 duration = 6;
   string status = 7;
   string contentType = 8;
   string expand = 9;
