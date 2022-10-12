@@ -81,6 +81,9 @@ func (s *VideoServer) GetDetail(ctx context.Context, request *proto.GetVideoRequ
 		Sha1:       request.FileSha1,
 	}
 	entity := b.GetDetail()
+	if entity == nil {
+		return nil, status.Errorf(codes.NotFound, "文件不存在")
+	}
 
 	return &proto.VideoResponse{
 		Id:         entity.ID,
