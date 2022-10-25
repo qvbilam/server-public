@@ -21,7 +21,7 @@ type VideoBusiness struct {
 	Channel     string
 }
 
-func (b *VideoBusiness) Exists() bool {
+func (b *VideoBusiness) Exists() *model.Video {
 	v := model.Video{}
 	condition := model.Video{}
 	if b.ID != 0 {
@@ -34,9 +34,10 @@ func (b *VideoBusiness) Exists() bool {
 		condition.Sha1 = b.Sha1
 	}
 	if res := global.DB.Where(condition).Select("id").First(&v); res.RowsAffected == 0 {
-		return false
+		return nil
 	}
-	return true
+
+	return &v
 }
 
 func (b *VideoBusiness) GetDetail() *model.Video {

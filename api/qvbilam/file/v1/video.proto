@@ -53,6 +53,7 @@ message SearchVideoRequest{
 
 message ExistsVideoResponse {
   bool isExists = 1;
+  VideoResponse video = 2;
 }
 
 service Video {

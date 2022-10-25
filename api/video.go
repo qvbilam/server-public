@@ -23,8 +23,26 @@ func (s *VideoServer) Exists(ctx context.Context, request *proto.GetVideoRequest
 		BusinessID: request.BusinessId,
 		Sha1:       request.FileSha1,
 	}
-	exists := b.Exists()
-	return &proto.ExistsVideoResponse{IsExists: exists}, nil
+
+	entity := b.GetDetail()
+
+	video := &proto.VideoResponse{}
+	isExists := false
+	if entity != nil {
+		isExists = true
+		video = &proto.VideoResponse{
+			Id:         entity.ID,
+			BusinessId: entity.BusinessId,
+			Url:        entity.Url,
+			Status:     entity.Status,
+			Channel:    entity.Channel,
+		}
+	}
+
+	return &proto.ExistsVideoResponse{
+		IsExists: isExists,
+		Video:    video,
+	}, nil
 }
 
 func (s *VideoServer) Create(ctx context.Context, request *proto.UpdateVideoRequest) (*proto.VideoResponse, error) {
