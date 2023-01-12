@@ -1,15 +1,15 @@
 package main
 
 import (
-	"file/api"
-	proto "file/api/qvbilam/file/v1"
-	"file/global"
-	"file/initialize"
 	"fmt"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"net"
 	"os"
+	"public/api"
+	proto "public/api/qvbilam/public/v1"
+	"public/global"
+	"public/initialize"
 )
 
 func main() {

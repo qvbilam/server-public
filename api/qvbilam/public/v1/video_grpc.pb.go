@@ -4,7 +4,7 @@
 // - protoc             v3.19.4
 // source: video.proto
 
-package fileV1
+package publicV1
 
 import (
 	context "context"
@@ -41,7 +41,7 @@ func NewVideoClient(cc grpc.ClientConnInterface) VideoClient {
 
 func (c *videoClient) Create(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*VideoResponse, error) {
 	out := new(VideoResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Video/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *videoClient) Create(ctx context.Context, in *UpdateVideoRequest, opts .
 
 func (c *videoClient) Update(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Video/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *videoClient) Update(ctx context.Context, in *UpdateVideoRequest, opts .
 
 func (c *videoClient) Delete(ctx context.Context, in *UpdateVideoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Video/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func (c *videoClient) Delete(ctx context.Context, in *UpdateVideoRequest, opts .
 
 func (c *videoClient) Get(ctx context.Context, in *SearchVideoRequest, opts ...grpc.CallOption) (*VideosResponse, error) {
 	out := new(VideosResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Video/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *videoClient) Get(ctx context.Context, in *SearchVideoRequest, opts ...g
 
 func (c *videoClient) GetDetail(ctx context.Context, in *GetVideoRequest, opts ...grpc.CallOption) (*VideoResponse, error) {
 	out := new(VideoResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Video/GetDetail", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Video/GetDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *videoClient) GetDetail(ctx context.Context, in *GetVideoRequest, opts .
 
 func (c *videoClient) Exists(ctx context.Context, in *GetVideoRequest, opts ...grpc.CallOption) (*ExistsVideoResponse, error) {
 	out := new(ExistsVideoResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Video/Exists", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Video/Exists", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func _Video_Create_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Video/Create",
+		FullMethod: "/publicPb.v1.Video/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VideoServer).Create(ctx, req.(*UpdateVideoRequest))
@@ -169,7 +169,7 @@ func _Video_Update_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Video/Update",
+		FullMethod: "/publicPb.v1.Video/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VideoServer).Update(ctx, req.(*UpdateVideoRequest))
@@ -187,7 +187,7 @@ func _Video_Delete_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Video/Delete",
+		FullMethod: "/publicPb.v1.Video/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VideoServer).Delete(ctx, req.(*UpdateVideoRequest))
@@ -205,7 +205,7 @@ func _Video_Get_Handler(srv interface{}, ctx context.Context, dec func(interface
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Video/Get",
+		FullMethod: "/publicPb.v1.Video/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VideoServer).Get(ctx, req.(*SearchVideoRequest))
@@ -223,7 +223,7 @@ func _Video_GetDetail_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Video/GetDetail",
+		FullMethod: "/publicPb.v1.Video/GetDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VideoServer).GetDetail(ctx, req.(*GetVideoRequest))
@@ -241,7 +241,7 @@ func _Video_Exists_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Video/Exists",
+		FullMethod: "/publicPb.v1.Video/Exists",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VideoServer).Exists(ctx, req.(*GetVideoRequest))
@@ -253,7 +253,7 @@ func _Video_Exists_Handler(srv interface{}, ctx context.Context, dec func(interf
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Video_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "filePb.v1.Video",
+	ServiceName: "publicPb.v1.Video",
 	HandlerType: (*VideoServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -2,11 +2,11 @@ package api
 
 import (
 	"context"
-	proto "file/api/qvbilam/file/v1"
-	"file/business"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
+	proto "public/api/qvbilam/public/v1"
+	"public/business"
 )
 
 type VideoServer struct {

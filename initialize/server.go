@@ -1,13 +1,13 @@
 package initialize
 
 import (
-	userProto "file/api/qvbilam/user/v1"
-	"file/global"
 	"fmt"
 	retry "github.com/grpc-ecosystem/go-grpc-middleware/retry"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	userProto "public/api/qvbilam/user/v1"
+	"public/global"
 	"time"
 )
 

@@ -1,10 +1,10 @@
 package business
 
 import (
-	"file/global"
-	"file/model"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"public/global"
+	"public/model"
 )
 
 type VideoBusiness struct {

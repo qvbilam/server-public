@@ -1,9 +1,9 @@
 package global
 
 import (
-	userProto "file/api/qvbilam/user/v1"
-	"file/config"
 	"gorm.io/gorm"
+	userProto "public/api/qvbilam/user/v1"
+	"public/config"
 )
 
 var (

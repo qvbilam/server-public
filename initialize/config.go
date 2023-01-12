@@ -1,10 +1,10 @@
 package initialize
 
 import (
-	"file/global"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
+	"public/global"
 )
 
 func InitConfig() {

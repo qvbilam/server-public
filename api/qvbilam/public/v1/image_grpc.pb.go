@@ -4,7 +4,7 @@
 // - protoc             v3.19.4
 // source: image.proto
 
-package fileV1
+package publicV1
 
 import (
 	context "context"
@@ -41,7 +41,7 @@ func NewImageClient(cc grpc.ClientConnInterface) ImageClient {
 
 func (c *imageClient) Create(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*ImageResponse, error) {
 	out := new(ImageResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Image/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *imageClient) Create(ctx context.Context, in *UpdateImageRequest, opts .
 
 func (c *imageClient) Update(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Image/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *imageClient) Update(ctx context.Context, in *UpdateImageRequest, opts .
 
 func (c *imageClient) Delete(ctx context.Context, in *UpdateImageRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Image/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func (c *imageClient) Delete(ctx context.Context, in *UpdateImageRequest, opts .
 
 func (c *imageClient) Get(ctx context.Context, in *SearchImageRequest, opts ...grpc.CallOption) (*ImagesResponse, error) {
 	out := new(ImagesResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Get", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Image/Get", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *imageClient) Get(ctx context.Context, in *SearchImageRequest, opts ...g
 
 func (c *imageClient) GetDetail(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*ImageResponse, error) {
 	out := new(ImageResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Image/GetDetail", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Image/GetDetail", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *imageClient) GetDetail(ctx context.Context, in *GetImageRequest, opts .
 
 func (c *imageClient) Exists(ctx context.Context, in *GetImageRequest, opts ...grpc.CallOption) (*ExistsImageResponse, error) {
 	out := new(ExistsImageResponse)
-	err := c.cc.Invoke(ctx, "/filePb.v1.Image/Exists", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/publicPb.v1.Image/Exists", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func _Image_Create_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Image/Create",
+		FullMethod: "/publicPb.v1.Image/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ImageServer).Create(ctx, req.(*UpdateImageRequest))
@@ -169,7 +169,7 @@ func _Image_Update_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Image/Update",
+		FullMethod: "/publicPb.v1.Image/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ImageServer).Update(ctx, req.(*UpdateImageRequest))
@@ -187,7 +187,7 @@ func _Image_Delete_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Image/Delete",
+		FullMethod: "/publicPb.v1.Image/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ImageServer).Delete(ctx, req.(*UpdateImageRequest))
@@ -205,7 +205,7 @@ func _Image_Get_Handler(srv interface{}, ctx context.Context, dec func(interface
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Image/Get",
+		FullMethod: "/publicPb.v1.Image/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ImageServer).Get(ctx, req.(*SearchImageRequest))
@@ -223,7 +223,7 @@ func _Image_GetDetail_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Image/GetDetail",
+		FullMethod: "/publicPb.v1.Image/GetDetail",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ImageServer).GetDetail(ctx, req.(*GetImageRequest))
@@ -241,7 +241,7 @@ func _Image_Exists_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/filePb.v1.Image/Exists",
+		FullMethod: "/publicPb.v1.Image/Exists",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ImageServer).Exists(ctx, req.(*GetImageRequest))
@@ -253,7 +253,7 @@ func _Image_Exists_Handler(srv interface{}, ctx context.Context, dec func(interf
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Image_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "filePb.v1.Image",
+	ServiceName: "publicPb.v1.Image",
 	HandlerType: (*ImageServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

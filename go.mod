@@ -1,4 +1,4 @@
-module file
+module public
 
 go 1.18
 
