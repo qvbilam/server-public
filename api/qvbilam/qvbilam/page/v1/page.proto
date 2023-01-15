@@ -1,8 +1,0 @@
-syntax = "proto3";
-package pagePb.v1;
-option go_package="public/api/qvbilam/page/v1;pageV1";
-
-message PageRequest {
-  int64 page = 1;
-  int64 perPage = 2;
-}

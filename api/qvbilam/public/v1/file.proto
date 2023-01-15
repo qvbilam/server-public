@@ -4,20 +4,58 @@ import "google/protobuf/empty.proto";
 import "api/qvbilam/page/v1/page.proto";
 option go_package="public/api/qvbilam/public/v1;publicV1";
 
+
 message FileResponse {
   int64 id = 1;
   string channel = 2;
-  string url = 3;
-  string contentType = 4;
-  int64 size = 5;
-  string extra = 6;
+  string sha1 = 3;
+  string url = 4;
+  string contentType = 5;
+  int64 size = 6;
+  string extra = 7;
+  string callback = 8;
+  string createdAt = 9;
 }
 
 message FilesResponse {
   int64 total = 1;
-  repeated FilesResponse files = 2;
+  repeated FileResponse files = 2;
 }
 
-message UpdateFileResponse {
+message UpdateFileRequest {
+  int64 id = 1;
+  string channel = 2;
+  string sha1 = 3;
+  string url = 4;
+  string contentType = 5;
+  int64 size = 6;
+  string extra = 7;
+  string callback = 8;
+}
 
+message FileDetailRequest {
+  int64 id = 1;
+  string sha1 = 2;
+}
+
+message SearchFileRequest{
+  int64 id = 1;
+  string sha1 = 2;
+  repeated int64 ids = 3;
+  repeated string sha1s =4;
+  pagePb.v1.PageRequest page = 5;
+}
+
+message ExistsFileResponse {
+  bool isExists = 1;
+  FileResponse file = 2;
+}
+
+service File {
+  rpc Create (UpdateFileRequest) returns (FileResponse);
+  rpc Update(UpdateFileRequest) returns (google.protobuf.Empty);
+  rpc Delete(UpdateFileRequest) returns (google.protobuf.Empty);
+  rpc Get (SearchFileRequest) returns (FilesResponse);
+  rpc GetDetail (FileDetailRequest) returns (FileResponse);
+  rpc Exists(FileDetailRequest) returns (ExistsFileResponse);
 }

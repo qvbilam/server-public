@@ -23,7 +23,7 @@ func main() {
 	server := grpc.NewServer()
 	// todo
 	proto.RegisterVideoServer(server, &api.VideoServer{})
-	proto.RegisterImageServer(server, &api.ImageServer{})
+	proto.RegisterFileServer(server, &api.FileServer{})
 
 	Host := "0.0.0.0"
 	Port := 9803

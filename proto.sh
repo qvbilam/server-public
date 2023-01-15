@@ -12,7 +12,7 @@ function proto {
 }
 
 proto public video v1
-proto public image v1
+proto public file v1
 
 proto user user v1
 proto page page v1
