@@ -15,7 +15,7 @@ message ImageResponse {
   int64 height = 7;
   string status = 8;
   string contentType = 9;
-  string expand = 10;
+  string extra = 10;
   string createdAt = 11;
   string channel = 12;
 }
@@ -35,7 +35,7 @@ message UpdateImageRequest {
   int64 height = 7;
   string status = 8;
   string contentType = 9;
-  string expand = 10;
+  string extra = 10;
   string sha1 = 11;
   string channel = 12;
 }

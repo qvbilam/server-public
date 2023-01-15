@@ -55,7 +55,7 @@ func (s *VideoServer) Create(ctx context.Context, request *proto.UpdateVideoRequ
 		Duration:    request.Duration,
 		Status:      request.Status,
 		ContentType: request.ContentType,
-		Expand:      request.Expand,
+		Extra:       request.Extra,
 		Channel:     request.Channel,
 	}
 

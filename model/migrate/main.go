@@ -1,11 +1,11 @@
 package main
 
 import (
-	"file/model"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
+	"public/model"
 )
 
 func main() {
@@ -33,7 +33,7 @@ func DB() *gorm.DB {
 
 func Migrate(db *gorm.DB) {
 	_ = db.AutoMigrate(
-		&model.Image{},
+		&model.File{},
 		&model.Video{},
 		&model.DownloadLog{},
 	)

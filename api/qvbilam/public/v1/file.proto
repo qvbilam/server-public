@@ -1,0 +1,23 @@
+syntax = "proto3";
+package publicPb.v1;
+import "google/protobuf/empty.proto";
+import "api/qvbilam/page/v1/page.proto";
+option go_package="public/api/qvbilam/public/v1;publicV1";
+
+message FileResponse {
+  int64 id = 1;
+  string channel = 2;
+  string url = 3;
+  string contentType = 4;
+  int64 size = 5;
+  string extra = 6;
+}
+
+message FilesResponse {
+  int64 total = 1;
+  repeated FilesResponse files = 2;
+}
+
+message UpdateFileResponse {
+
+}

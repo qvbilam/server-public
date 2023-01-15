@@ -17,7 +17,7 @@ type VideoBusiness struct {
 	Duration    int64
 	Status      string
 	ContentType string
-	Expand      string
+	Extra       string
 	Channel     string
 }
 
@@ -69,7 +69,7 @@ func (b *VideoBusiness) Create() (*model.Video, error) {
 		Duration:    b.Duration,
 		Status:      b.Status,
 		ContentType: b.ContentType,
-		Expand:      b.Expand,
+		Extra:       b.Extra,
 		Channel:     b.Channel,
 	}
 	if res := global.DB.Save(&v); res.RowsAffected == 0 {
