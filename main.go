@@ -26,7 +26,7 @@ func main() {
 	proto.RegisterFileServer(server, &api.FileServer{})
 
 	Host := "0.0.0.0"
-	Port := 9803
+	Port := global.ServerConfig.Port
 
 	lis, err := net.Listen("tcp", fmt.Sprintf("%s:%d", Host, Port))
 	if err != nil {
