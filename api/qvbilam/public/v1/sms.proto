@@ -1,0 +1,22 @@
+syntax = "proto3";
+package publicPb.v1;
+import "google/protobuf/empty.proto";
+import "api/qvbilam/page/v1/page.proto";
+option go_package="public/api/qvbilam/public/v1;publicV1";
+
+message SendSmsRequest {
+  string mobile = 1;
+  string type = 2;
+}
+
+message CheckSmsRequest{
+  string mobile = 1;
+  string type= 2;
+  string code = 3;
+}
+
+
+service Sms {
+  rpc Send(SendSmsRequest) returns (google.protobuf.Empty);
+  rpc Check(CheckSmsRequest) returns (google.protobuf.Empty);
+}

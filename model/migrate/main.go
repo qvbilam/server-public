@@ -36,5 +36,7 @@ func Migrate(db *gorm.DB) {
 		&model.File{},
 		&model.Video{},
 		&model.DownloadLog{},
+		&model.SmsChannel{},
+		&model.SmsCodeRecord{},
 	)
 }

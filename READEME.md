@@ -13,4 +13,8 @@ go get -u google.golang.org/genproto
 
 # 配置
 go get -u github.com/spf13/viper
+
+# 阿里云短信
+go get github.com/alibabacloud-go/darabonba-openapi/v2/client
+go get github.com/alibabacloud-go/dysmsapi-20170525/v3/client
 ```
