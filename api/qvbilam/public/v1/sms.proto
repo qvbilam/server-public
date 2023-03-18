@@ -1,7 +1,6 @@
 syntax = "proto3";
 package publicPb.v1;
 import "google/protobuf/empty.proto";
-import "api/qvbilam/page/v1/page.proto";
 option go_package="public/api/qvbilam/public/v1;publicV1";
 
 message SendSmsRequest {

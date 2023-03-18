@@ -24,6 +24,7 @@ func main() {
 	// todo
 	proto.RegisterVideoServer(server, &api.VideoServer{})
 	proto.RegisterFileServer(server, &api.FileServer{})
+	proto.RegisterSmsServer(server, &api.SmsServer{})
 
 	Host := "0.0.0.0"
 	Port := global.ServerConfig.Port
