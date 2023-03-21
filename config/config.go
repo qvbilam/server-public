@@ -6,6 +6,7 @@ type ServerConfig struct {
 	Tags             []string         `mapstructure:"tags" json:"tags"`
 	DBConfig         DBConfig         `mapstructure:"db" json:"db"`
 	UserServerConfig UserServerConfig `mapstructure:"user-server" json:"user-server"`
+	RedisConfig      RedisConfig      `mapstructure:"redis" json:"redis"`
 }
 
 type DBConfig struct {
@@ -20,4 +21,12 @@ type UserServerConfig struct {
 	Host string `mapstructure:"host" json:"host"`
 	Port int64  `mapstructure:"port" json:"port"`
 	Name string `mapstructure:"name" json:"name"`
+}
+
+type RedisConfig struct {
+	Host     string `mapstructure:"host" json:"host"`
+	Port     int    `mapstructure:"port" json:"port"`
+	User     string `mapstructure:"user" json:"user"`
+	Password string `mapstructure:"password" json:"password"`
+	Database int    `mapstructure:"database" json:"database"`
 }

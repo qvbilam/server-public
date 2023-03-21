@@ -18,6 +18,7 @@ func main() {
 	initialize.InitConfig()
 	initialize.InitDatabase()
 	initialize.InitServer()
+	initialize.InitRedis()
 
 	// 注册服务
 	server := grpc.NewServer()

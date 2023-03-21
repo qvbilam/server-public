@@ -6,6 +6,7 @@ option go_package="public/api/qvbilam/public/v1;publicV1";
 message SendSmsRequest {
   string mobile = 1;
   string type = 2;
+  string clientIP = 3;
 }
 
 message CheckSmsRequest{

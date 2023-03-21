@@ -3,7 +3,6 @@ package sms
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	openapi "github.com/alibabacloud-go/darabonba-openapi/v2/client"
 	dysmsapi20170525 "github.com/alibabacloud-go/dysmsapi-20170525/v3/client"
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
@@ -18,23 +17,8 @@ type Client struct {
 	*dysmsapi20170525.Client
 }
 
-var successCode = "ok"
+var successCode = "OK"
 var url = "dysmsapi.aliyuncs.com"
-
-func demo() {
-	c := Client{
-		AccessKeyId:     "LTAI5tGH3YwADGhBCyB3Cg3s",
-		AccessKeySecret: "db9ieC5otI7oye6XlqGr2xPRQfe7sC",
-		SignName:        "QvBiLam",
-		TemplateCode:    "SMS_249265426",
-	}
-
-	if res, err := c.SendCode("13501294164", "6666"); err != nil {
-		fmt.Println("err", err)
-	} else {
-		fmt.Println(res)
-	}
-}
 
 func (c *Client) Create() (*dysmsapi20170525.Client, error) {
 	config := &openapi.Config{
@@ -98,8 +82,9 @@ func (c *Client) SendCode(mobile, code string) (*string, error) {
 		}
 	}
 
-	if res.Body.Code != tea.String(successCode) {
+	if *res.Body.Code != successCode {
 		return nil, errors.New(*res.Body.Message)
 	}
-	return res.Body.RequestId, err
+
+	return res.Body.RequestId, nil
 }
