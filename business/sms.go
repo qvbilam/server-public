@@ -95,11 +95,11 @@ func (b *SmsBusiness) Check() error {
 	if entity.IsUsed == true {
 		return status.Errorf(codes.InvalidArgument, "验证码已使用")
 	}
-	if entity.ExpiredAt.Unix() <= time.Now().Unix() {
-		return status.Errorf(codes.InvalidArgument, "验证码过期")
-	}
 	if entity.Code != b.CheckCode {
 		return status.Errorf(codes.InvalidArgument, "验证码错误")
+	}
+	if entity.ExpiredAt.Unix() <= time.Now().Unix() {
+		return status.Errorf(codes.InvalidArgument, "验证码过期")
 	}
 
 	entity.IsUsed = true

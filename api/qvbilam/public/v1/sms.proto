@@ -17,6 +17,15 @@ message CheckSmsRequest{
 
 
 service Sms {
+  rpc SendLogin(SendSmsRequest) returns (google.protobuf.Empty);
+  rpc CheckLogin(CheckSmsRequest) returns (google.protobuf.Empty);
+
+  rpc SendLogout(SendSmsRequest) returns (google.protobuf.Empty);
+  rpc CheckLogout(CheckSmsRequest) returns (google.protobuf.Empty);
+
+  rpc SendPassword(SendSmsRequest) returns (google.protobuf.Empty);
+  rpc CheckPassword(CheckSmsRequest) returns (google.protobuf.Empty);
+
   rpc Send(SendSmsRequest) returns (google.protobuf.Empty);
   rpc Check(CheckSmsRequest) returns (google.protobuf.Empty);
 }
