@@ -1,0 +1,18 @@
+name: "public"
+port: "9803"
+db:
+  host:
+  port:
+  user:
+  password:
+  database:
+user-server:
+  host:
+  port:
+  name: "grpc-user-server"
+redis:
+  host:
+  port:
+  user:
+  password:
+  database:
