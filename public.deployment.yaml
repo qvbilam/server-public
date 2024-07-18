@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: public-server
+  labels:
+    app: public-server
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: public-server
+  template:
+    metadata:
+      labels:
+        app: public-server
+        version: v1.0
+    spec:
+      containers:
+        - name: public-server
+          image: registry.cn-hangzhou.aliyuncs.com/qvbilam/api-server-public:1.0.0
+          # 不存在拉取
+          # imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
+          ports: # 容器内部使用端口
+            - containerPort: 9501
+          env:
+            # 服务配置
+            - name: SERVER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: server_name
+                  name: public
+            # database
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: db_host
+                  name: public
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  key: db_port
+                  name: public
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: db_user
+                  name: public
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: db_password
+                  name: public
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: db_database
+                  name: public
+            # redis
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: redis_host
+                  name: public
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  key: redis_port
+                  name: public
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: redis_password
+                  name: public
+            - name: REDIS_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: redis_database
+                  name: public
+            # user-server
+            - name: USER_SERVER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: user_server_name
+                  name: public
+            - name: USER_SERVER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: user_server_host
+                  name: public
+            - name: USER_SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: user_server_port
+                  name: public
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+      imagePullSecrets:
+        - name: ali-image-key
